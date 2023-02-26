@@ -25,13 +25,15 @@ public class Exercise {
 
     private List<String> tasks;
 
-    private List<Object> assignedUsers;
 
 
-    public Exercise(String title, String description, List<String> tasks, List<Object> assignedUsers) {
+    private int maximum_time;
+
+    public Exercise(String title, String description, List<String> tasks, int maximum_time) {
         this.title = title;
         this.description = description;
         this.tasks = tasks;
-        this.assignedUsers = assignedUsers;
+        this.maximum_time = maximum_time;
     }
 }
+

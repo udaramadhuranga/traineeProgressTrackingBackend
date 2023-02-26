@@ -224,7 +224,7 @@ public class UserController {
         if(updateUser == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }else{
-            return new ResponseEntity<>(userService.updateUser(user,id), HttpStatus.OK);
+            return new ResponseEntity<>(updateUser, HttpStatus.OK);
         }
 
     }
