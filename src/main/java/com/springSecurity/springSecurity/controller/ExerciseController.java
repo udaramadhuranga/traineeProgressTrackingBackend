@@ -1,8 +1,10 @@
 package com.springSecurity.springSecurity.controller;
 
 import com.springSecurity.springSecurity.models.Exercise;
+import com.springSecurity.springSecurity.models.UserExcercise;
 import com.springSecurity.springSecurity.payload.requests.ExerciseRequest;
 import com.springSecurity.springSecurity.payload.requests.SignupRequest;
+import com.springSecurity.springSecurity.payload.requests.UserExcerciseRequest;
 import com.springSecurity.springSecurity.services.ExerciseService;
 import com.springSecurity.springSecurity.services.UserServiceImp;
 import org.slf4j.Logger;
@@ -40,5 +42,41 @@ public class ExerciseController {
         }
 
     }
+
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('TRAINER')")
+    public ResponseEntity <String> deleteExercise(@PathVariable String id){
+
+        try {
+            String deletedId = exerciseService.deleteExcercise( id);
+            if (deletedId == null) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            } else {
+                return new ResponseEntity<>(deletedId, HttpStatus.OK);
+            }
+        }catch (Exception e){
+            logger.info(e.getMessage());
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('TRAINER')")
+    public ResponseEntity <Exercise> updateUserExercise(@RequestBody ExerciseRequest exerciseRequest, @PathVariable String id){
+
+        try {
+            Exercise exercise = exerciseService.updateExcercise(exerciseRequest, id);
+            if (exercise == null) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            } else {
+                return new ResponseEntity<>(exercise, HttpStatus.OK);
+            }
+        }catch (Exception e){
+            logger.info(e.getMessage());
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
 
 }

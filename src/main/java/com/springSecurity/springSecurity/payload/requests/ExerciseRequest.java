@@ -1,6 +1,5 @@
 package com.springSecurity.springSecurity.payload.requests;
 
-import com.springSecurity.springSecurity.models.UserCourse;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Builder;
@@ -18,13 +17,13 @@ public class ExerciseRequest {
 
     @NotBlank
     @Size(max = 1000)
-    private String discription;
+    private String description;
 
 
     private List<String> tasks;
 
-    private List<Object> assignedUsers;
 
+    private int maximum_time;
 
 
 }
