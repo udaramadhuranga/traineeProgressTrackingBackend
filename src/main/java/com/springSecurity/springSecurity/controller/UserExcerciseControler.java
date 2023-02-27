@@ -45,7 +45,7 @@ public class UserExcerciseControler {
     }
 
     @GetMapping("/trainee-all-courses/{id}")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('TRAINER')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('TRAINER') or hasRole('TRAINEE') ")
     public ResponseEntity <List<UserExcercise>> getAllCoursesOfUser(@PathVariable String id) {
 
         try{

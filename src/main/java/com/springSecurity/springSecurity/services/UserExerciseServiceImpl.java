@@ -75,6 +75,7 @@ public class UserExerciseServiceImpl implements UserExerciseService {
 
             _userExcercise.get().setStatus(userExcercise.getStatus());
             _userExcercise.get().setCompleted_Date(userExcercise.getCompleted_Date());
+            _userExcercise.get().setAssined_Date(userExcercise.getAssined_Date());
             return userExcerciseRepository.save(_userExcercise.get());
 
         }else {
