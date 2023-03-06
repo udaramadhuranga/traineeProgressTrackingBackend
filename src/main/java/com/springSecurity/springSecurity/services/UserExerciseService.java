@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface UserExerciseService {
     public UserExcercise addUserCourse(UserExcerciseRequest courseRequest);
+
     public List<UserExcercise> getTraineeExercises(String id);
 
     public UserExcercise updateUserExercise(UserExcerciseRequest userExcercise,String id);

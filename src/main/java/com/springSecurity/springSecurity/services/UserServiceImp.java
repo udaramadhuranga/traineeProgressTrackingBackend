@@ -38,36 +38,21 @@ public class UserServiceImp implements UserService {
     @Override
     public String deletetraineeById(String id) {
         Optional<User> user = userRepositiory.findById(id);
-
-
-
         if(user != null){
             Set<Role> roles;
-
             roles = user.get().getRoles();
-
             List<String> convertRole = new ArrayList<>();
-
             roles.forEach(role -> {convertRole.add(role.getId());});
-
             logger.info(roleRepository.findByName(ERole.ROLE_TRAINER).get().getId());
-
             logger.info(convertRole.get(0));
-
-
             if((convertRole.get(0).equals(roleRepository.findByName(ERole.ROLE_TRAINER).get().getId()) ) || (convertRole.get(0).equals(roleRepository.findByName(ERole.ROLE_ADMIN).get().getId()) )){
-
                 return "Not valid";
-
             }else {
-
                 userRepositiory.deleteById(id);
-
                 return "valid";
             }
         }
     return "Not valid";
-
     }
 
     @Override
@@ -75,18 +60,13 @@ public class UserServiceImp implements UserService {
 
         Optional<User> userData = userRepositiory.findById(id);
         if(userData.isPresent()){
-
             User _user = userData.get();
-
             Set<String> strRoles = user.getRoles();
             Set<Role> roles = new HashSet<>();
-
-
             if (strRoles == null) {
                 Role userRole = roleRepository.findByName(ERole.ROLE_TRAINEE)
                         .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                 roles.add(userRole);
-
             } else {
                 strRoles.forEach(role -> {
                     switch (role) {
@@ -94,14 +74,11 @@ public class UserServiceImp implements UserService {
                             Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
                                     .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                             roles.add(adminRole);
-
                             break;
-
                         case "trainer":
                             Role trainerRole = roleRepository.findByName(ERole.ROLE_TRAINER)
                                     .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                             roles.add(trainerRole);
-
                             break;
                         default:
                             Role userRole = roleRepository.findByName(ERole.ROLE_TRAINEE)
@@ -110,77 +87,47 @@ public class UserServiceImp implements UserService {
                     }
                 });
             }
-
-
-
             if(userRepositiory.existsByEmail(user.getEmail()) || userRepositiory.existsByUsername(user.getUsername())){
                 return null;
             }else {
-
                 _user.setUsername(user.getUsername());
                 _user.setRoles(roles);
-
-                _user.setPassword(encoder.encode(user.getPassword()));
                 _user.setEmail(user.getEmail());
                 _user.setPhoneNo(user.getPhoneNo());
                 _user.setAddress(user.getAddress());
-
                 return userRepositiory.save(_user);
-
             }
-
         }
-
         return (null);
     }
 
     @Override
     public User updateTrainee(SignupRequest user, String id) {
         Optional<User> userData = userRepositiory.findById(id);
-
         if(userData.isPresent()){
-
             User _user = userData.get();
-
             Set<Role> roles;
-
             roles = _user.getRoles();
-
             List<String> convertRole = new ArrayList<>();
-
             roles.forEach(role -> {convertRole.add(role.getId());});
-
             logger.info(roleRepository.findByName(ERole.ROLE_TRAINER).get().getId());
-
             logger.info(convertRole.get(0));
-
-
             if((convertRole.get(0).equals(roleRepository.findByName(ERole.ROLE_TRAINER).get().getId()) ) || (convertRole.get(0).equals(roleRepository.findByName(ERole.ROLE_ADMIN).get().getId()) )){
-
                 return null;
-
             }else{
                 if(userRepositiory.existsByEmail(user.getEmail()) || userRepositiory.existsByUsername(user.getUsername())){
                     return null;
                 }else {
-
                     _user.setUsername(user.getUsername());
-//                _user.setRoles(user.getRoles());
-//                    _user.setPassword(user.getPassword());
                     _user.setEmail(user.getEmail());
                     _user.setPhoneNo(user.getPhoneNo());
                     _user.setAddress(user.getAddress());
-
-
                     return userRepositiory.save(_user);
-
                 }
             }
-
         }
         return null;
     }
-
 
     //implementation of all users getting
     @Override

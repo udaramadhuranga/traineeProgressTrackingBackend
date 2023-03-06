@@ -15,6 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/tasks")
@@ -48,7 +50,8 @@ public class ExerciseController {
     public ResponseEntity <String> deleteExercise(@PathVariable String id){
 
         try {
-            String deletedId = exerciseService.deleteExcercise( id);
+            logger.info("id : "  + id);
+            String deletedId = exerciseService.deleteExcercise(id);
             if (deletedId == null) {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             } else {
@@ -75,6 +78,43 @@ public class ExerciseController {
             logger.info(e.getMessage());
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+
+    @GetMapping("/all")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('TRAINER') or hasRole('TRAINEE')")
+    public ResponseEntity <List<Exercise>> getAllExercises() {
+
+        try{
+            logger.info("User-Exercise controller before calling trainee-all-courses  get ");
+            return new ResponseEntity<>(exerciseService.getAllExcercise(), HttpStatus.OK);
+
+        }catch (Exception e){
+
+            logger.info(e.getMessage());
+
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
+
+
+    @GetMapping("/")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('TRAINER') or hasRole('TRAINEE')")
+    public ResponseEntity <Exercise> getExercises(String id) {
+
+        try{
+            logger.info("User-Exercise controller before calling trainee-all-courses  get ");
+
+            return new ResponseEntity<>(exerciseService.getExcercise(id), HttpStatus.OK);
+
+        }catch (Exception e){
+
+            logger.info(e.getMessage());
+
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 
 

@@ -15,5 +15,7 @@ public interface ExerciseService {
 
     public List<Exercise> getAllExcercise();
 
+    public Exercise getExcercise(String id);
+
 
 }

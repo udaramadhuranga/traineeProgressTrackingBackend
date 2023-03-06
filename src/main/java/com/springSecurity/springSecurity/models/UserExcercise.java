@@ -28,7 +28,6 @@ public class UserExcercise {
     @JsonFormat(pattern="yyyy-MM-dd")
      Date Completed_Date;
 
-
     String status;
 
     String comment;

@@ -1,6 +1,5 @@
 package com.springSecurity.springSecurity.Repository;
 
-
 import com.springSecurity.springSecurity.models.UserExcercise;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
@@ -13,4 +12,7 @@ public interface UserExcerciseRepository extends MongoRepository<UserExcercise,S
 
     @Query("{ 'traineeId.id' : ?0 }")
     List<UserExcercise> findByTraineeId(String id);
+
+    @Query("{ 'exercise.id' : ?0 }")
+    List<UserExcercise> findByExercise(String id);
 }

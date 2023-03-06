@@ -39,11 +39,8 @@ public class User {
     @Size(max = 300)
     private String phoneNo;
 
-
-
     @DBRef
     private Set<Role> roles = new HashSet<>();
-
 
     public User() {
     }

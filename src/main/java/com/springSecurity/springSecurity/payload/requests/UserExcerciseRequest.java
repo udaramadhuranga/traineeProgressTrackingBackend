@@ -11,20 +11,18 @@ import java.util.Date;
 @Builder
 public class UserExcerciseRequest {
 
-
     @Id
     private String id;
-    String traineeId;
+    private String traineeId;
 
+    private String exercise;
 
-    String exercise;
+    private Date Assined_Date;
 
-    Date Assined_Date;
-
-    Date Completed_Date;
+    private Date Completed_Date;
 
     @Value("${some.key:Not Completed}")
-    String status;
+    private String status;
 
-    String comment;
+    private String comment;
 }

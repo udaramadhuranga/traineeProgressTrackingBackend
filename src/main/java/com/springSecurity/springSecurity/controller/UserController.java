@@ -112,16 +112,16 @@ public class UserController {
 
         }else {
             user.setRoles(roles);
-            userRepository.save(user);
+            User savedUser =userRepository.save(user);
 
-            return ResponseEntity.ok("User registered successfully!");
+            return ResponseEntity.ok(savedUser);
 
         }
     }
 
     //User adding function for requirement trainer can add trainees.
     @PostMapping("/by-trainer")
-    @PreAuthorize("hasRole('TRAINER')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('TRAINER')")
     public ResponseEntity<?> registerTrainee( @RequestBody SignupRequest signUpRequest) {
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {
             return ResponseEntity
@@ -162,12 +162,12 @@ public class UserController {
             });
         }
 
-        if(roles.size() == 0) {
+        if(roles.size() != 0) {
 
             user.setRoles(roles);
-            userRepository.save(user);
+            User savedUser = userRepository.save(user);
 
-            return ResponseEntity.ok("User registered successfully!");
+            return ResponseEntity.ok(savedUser);
 
         }else {
             return ResponseEntity

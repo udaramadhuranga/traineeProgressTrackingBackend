@@ -11,7 +11,6 @@ import java.util.List;
 @Builder
 public class ExerciseRequest {
 
-
     @Size(max = 50)
     private String title;
 
@@ -19,11 +18,8 @@ public class ExerciseRequest {
     @Size(max = 1000)
     private String description;
 
-
     private List<String> tasks;
 
-
     private int maximum_time;
-
 
 }

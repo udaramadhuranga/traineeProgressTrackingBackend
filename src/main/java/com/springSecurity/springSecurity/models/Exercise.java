@@ -22,10 +22,7 @@ public class Exercise {
     @Size(max = 1000)
     private String description;
 
-
     private List<String> tasks;
-
-
 
     private int maximum_time;
 

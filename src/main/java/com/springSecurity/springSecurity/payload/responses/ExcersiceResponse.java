@@ -11,12 +11,9 @@ public class ExcersiceResponse {
 
     private String title;
 
-
     private String description;
 
-
     private List<String> tasks;
-
 
     private int maximum_time;
 

@@ -16,7 +16,6 @@ import java.util.Optional;
 @Service
 public class UserExerciseServiceImpl implements UserExerciseService {
 
-
     @Autowired
     ExerciseRepository exerciseRepository;
 
@@ -27,16 +26,10 @@ public class UserExerciseServiceImpl implements UserExerciseService {
 
     @Override
     public UserExcercise addUserCourse(UserExcerciseRequest courseRequest) {
-
         Optional<User> trainee = userRepositiory.findById(courseRequest.getTraineeId());
-
-
         Optional<Exercise> exercise = exerciseRepository.findById(courseRequest.getExercise());
-
         if(trainee.isPresent() && exercise.isPresent()) {
-
             UserExcercise userCourse = new UserExcercise(trainee.get(), exercise.get(), courseRequest.getAssined_Date(), courseRequest.getCompleted_Date(), courseRequest.getStatus(), courseRequest.getComment());
-
             return userExcerciseRepository.save(userCourse);
         }else {
             return null;
@@ -44,17 +37,13 @@ public class UserExerciseServiceImpl implements UserExerciseService {
     }
 
     public List<UserExcercise> getTraineeExercises(String id){
-
         return userExcerciseRepository.findByTraineeId(id);
     }
 
     @Override
     public UserExcercise updateUserExercise(UserExcerciseRequest userExcercise,String id) {
-
             Optional<UserExcercise> _userExcercise = userExcerciseRepository.findById(id);
-
             if (_userExcercise.isPresent()){
-
                 _userExcercise.get().setAssined_Date(userExcercise.getAssined_Date());
                 _userExcercise.get().setComment(userExcercise.getComment());
                 _userExcercise.get().setStatus(userExcercise.getStatus());
@@ -67,12 +56,8 @@ public class UserExerciseServiceImpl implements UserExerciseService {
     }
 
     public UserExcercise updateUserExerciseState(UserExcerciseRequest userExcercise,String id) {
-
         Optional<UserExcercise> _userExcercise = userExcerciseRepository.findById(id);
-
         if (_userExcercise.isPresent()){
-
-
             _userExcercise.get().setStatus(userExcercise.getStatus());
             _userExcercise.get().setCompleted_Date(userExcercise.getCompleted_Date());
             _userExcercise.get().setAssined_Date(userExcercise.getAssined_Date());

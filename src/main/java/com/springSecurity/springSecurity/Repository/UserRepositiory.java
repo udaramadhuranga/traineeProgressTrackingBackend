@@ -2,7 +2,6 @@ package com.springSecurity.springSecurity.Repository;
 
 import com.springSecurity.springSecurity.models.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.expression.spel.ast.Projection;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
