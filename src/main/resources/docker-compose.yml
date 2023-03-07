@@ -1,17 +1,17 @@
-#version: "3"
-#services:
-#  mongodoc:
-#    image: mongo:latest
-#    container_name: "mongodoc"
-#    ports:
-#      - 27017:27017
-#
-#  trainee-project:
-#    image: trainee-project:1.0
-#    build: ../../../
-#    container_name: trainee-project
-#    ports:
-#      - 3005:3005
-#    links:
-#      - mongodoc
+version: "3"
+services:
+  mongodoc:
+    image: mongo:latest
+    container_name: "mongodoc"
+    ports:
+      - 27017:27017
+
+  trainee-project:
+    image: trainee-project:1.0
+    build: ../../../
+    container_name: trainee-project
+    ports:
+      - 3005:3005
+    links:
+      - mongodoc
 

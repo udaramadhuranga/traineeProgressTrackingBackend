@@ -23,40 +23,56 @@ public class UserExcerciseControler {
 
     Logger logger = LoggerFactory.getLogger(UserExcerciseControler.class);
 
+    /**
+     * UserExercise add controller
+     * Access allows only to admins and trainers
+     * Post Request
+     * @param userExcerciseRequest Request body object
+     * @return UserExercise
+     * Catch all exceptions
+     */
     @PostMapping("/")
     @PreAuthorize("hasRole('ADMIN') or hasRole('TRAINER')")
     public ResponseEntity<UserExcercise> addUserCourse(@RequestBody UserExcerciseRequest userExcerciseRequest) {
-
         try{
             return new ResponseEntity<>(exerciseService.addUserCourse(userExcerciseRequest), HttpStatus.CREATED);
-
         }catch (Exception e){
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
+    /**
+     * Controller for get all userExercises of a particular trainee
+     * Access aloows to all three types of users
+     * Get Request
+     * @param id traineeId
+     * @return List<UserExercise>
+     * Catch all exceptions
+     */
     @GetMapping("/trainee-all-courses/{id}")
     @PreAuthorize("hasRole('ADMIN') or hasRole('TRAINER') or hasRole('TRAINEE') ")
     public ResponseEntity <List<UserExcercise>> getAllCoursesOfUser(@PathVariable String id) {
-
         try{
             logger.info("User-Exercise controller before calling trainee-all-courses  get ");
-
             return new ResponseEntity<>(exerciseService.getTraineeExercises(id), HttpStatus.OK);
-
         }catch (Exception e){
-
                 logger.info(e.getMessage());
-
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
     }
 
+    /**
+     * Controller for update UserExercise
+     * Access allows only for admins and trainers
+     * Put Request
+     * @param userExcerciseRequest Request body object
+     * @param id updating objectid
+     * @return UserExercise
+     * Catch all exceptions
+     */
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN') or hasRole('TRAINER')")
     public ResponseEntity <UserExcercise> updateUserExercise(@RequestBody UserExcerciseRequest userExcerciseRequest, @PathVariable String id){
-
         try {
             UserExcercise userExcercise = exerciseService.updateUserExercise(userExcerciseRequest, id);
             if (userExcercise == null) {
@@ -70,10 +86,18 @@ public class UserExcerciseControler {
         }
     }
 
+    /**
+     * Controller for update status of UserExercise
+     * Access allows for all user types
+     * Put Request
+     * @param userExcerciseRequest Request body object
+     * @param id updating objectid
+     * @return UserExercise
+     * Catch all exceptions
+     */
     @PutMapping("/state/{id}")
     @PreAuthorize("hasRole('ADMIN') or hasRole('TRAINER') or hasRole('TRAINEE') ")
     public ResponseEntity <UserExcercise> updateUserExerciseState(@RequestBody UserExcerciseRequest userExcerciseRequest, @PathVariable String id){
-
         try {
             UserExcercise userExcercise = exerciseService.updateUserExerciseState(userExcerciseRequest, id);
             if (userExcercise == null) {
@@ -87,6 +111,14 @@ public class UserExcerciseControler {
         }
     }
 
+    /**
+     * Controller for delete userExercise
+     * Access allow only for admins and trainers
+     * Delete request
+     * @param id deleting objectid
+     * @return deleted documnet id as a String
+     * Catch all exceptions
+     */
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN') or hasRole('TRAINER')")
     public ResponseEntity <String> deleteUserExercise(@PathVariable String id){

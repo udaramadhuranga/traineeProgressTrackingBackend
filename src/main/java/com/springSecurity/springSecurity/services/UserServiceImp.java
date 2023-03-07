@@ -29,12 +29,14 @@ public class UserServiceImp implements UserService {
 
     Logger logger = LoggerFactory.getLogger(UserServiceImp.class);
 
+    //allows to delete any user
     @Override
     public String deleteUserById(String id) {
         userRepositiory.deleteById(id);
         return id;
     }
 
+    //only allows to delete trainees
     @Override
     public String deletetraineeById(String id) {
         Optional<User> user = userRepositiory.findById(id);
@@ -45,6 +47,7 @@ public class UserServiceImp implements UserService {
             roles.forEach(role -> {convertRole.add(role.getId());});
             logger.info(roleRepository.findByName(ERole.ROLE_TRAINER).get().getId());
             logger.info(convertRole.get(0));
+            //checking user role either ROLE_ADMIN or ROLE_TRAINER
             if((convertRole.get(0).equals(roleRepository.findByName(ERole.ROLE_TRAINER).get().getId()) ) || (convertRole.get(0).equals(roleRepository.findByName(ERole.ROLE_ADMIN).get().getId()) )){
                 return "Not valid";
             }else {
@@ -55,6 +58,7 @@ public class UserServiceImp implements UserService {
     return "Not valid";
     }
 
+    //can update any user type
     @Override
     public User updateUser(SignupRequest user, String id) {
 
@@ -101,6 +105,7 @@ public class UserServiceImp implements UserService {
         return (null);
     }
 
+    //only allow to update ROLE_TRAINEE type users
     @Override
     public User updateTrainee(SignupRequest user, String id) {
         Optional<User> userData = userRepositiory.findById(id);
@@ -112,6 +117,7 @@ public class UserServiceImp implements UserService {
             roles.forEach(role -> {convertRole.add(role.getId());});
             logger.info(roleRepository.findByName(ERole.ROLE_TRAINER).get().getId());
             logger.info(convertRole.get(0));
+            //checking user role either ROLE_ADMIN or ROLE_TRAINER
             if((convertRole.get(0).equals(roleRepository.findByName(ERole.ROLE_TRAINER).get().getId()) ) || (convertRole.get(0).equals(roleRepository.findByName(ERole.ROLE_ADMIN).get().getId()) )){
                 return null;
             }else{

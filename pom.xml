@@ -8,11 +8,11 @@
 		<version>3.0.2</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.springSecurity</groupId>
-	<artifactId>springSecurity</artifactId>
+	<groupId>com.hSenid.Lanka</groupId>
+	<artifactId>trainee-progress-management</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>springSecurity</name>
-	<description>Demo project for Spring Boot</description>
+	<name>trainee-progress-management</name>
+	<description>Project for tracking trainee progress of training period developed for hSenid Lanka</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>

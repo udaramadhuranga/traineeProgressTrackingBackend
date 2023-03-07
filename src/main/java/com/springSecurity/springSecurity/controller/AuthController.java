@@ -50,6 +50,12 @@ public class AuthController {
     @Autowired
     JwtUtils jwtUtils;
 
+    /**
+     * Controller is for sign  users. Adding initial admin is the purpose of the method
+     * Post Request
+     * @param loginRequest Request body object
+     * @return JWT token,UserName,Email and roles
+     */
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
 
@@ -71,15 +77,21 @@ public class AuthController {
                 roles));
     }
 
-//signup for admin only
+    /**
+     * Controller for signup. Adding initial admin to the system is the purpose of this controller
+     * post Request
+     * @param signUpRequest Request body object
+     * @return A String to denote Success or failure of the request with the status code
+     */
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser( @RequestBody SignupRequest signUpRequest) {
+        //check whether there is already a user with request username and denied request
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {
             return ResponseEntity
                     .badRequest()
                     .body("Error: Username is already taken!");
         }
-
+        //check whether there is already a user registered with request email and denied request
         if (userRepository.existsByEmail(signUpRequest.getEmail())) {
             return ResponseEntity
                     .badRequest()
@@ -93,7 +105,7 @@ public class AuthController {
 
         Set<String> strRoles = signUpRequest.getRoles();
         Set<Role> roles = new HashSet<>();
-
+        //Roels mapping and store according to the db roles
         if (strRoles == null) {
             Role userRole = roleRepository.findByName(ERole.ROLE_TRAINEE)
                     .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
@@ -106,14 +118,11 @@ public class AuthController {
                         Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(adminRole);
-
                         break;
-
                     case "trainer":
                         Role trainerRole = roleRepository.findByName(ERole.ROLE_TRAINER)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(trainerRole);
-
                         break;
                     default:
                         Role userRole = roleRepository.findByName(ERole.ROLE_TRAINEE)
@@ -122,10 +131,8 @@ public class AuthController {
                 }
             });
         }
-
         user.setRoles(roles);
         userRepository.save(user);
-
         return ResponseEntity.ok("User registered successfully!");
     }
 }
