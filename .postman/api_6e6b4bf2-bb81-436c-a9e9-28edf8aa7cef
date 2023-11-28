@@ -9,11 +9,13 @@ id = 6e6b4bf2-bb81-436c-a9e9-28edf8aa7cef
 
 [config.relations.collections]
 rootDirectory = postman/collections
+files[] = {"id":"27188877-31e495f3-4a1e-4e68-ae4d-75ea82e9e706","path":"Checkup-core.json","metaData":{}}
 
 [config.relations.collections.metaData]
 
 [config.relations.apiDefinition]
 files[] = {"path":"index.yaml","metaData":{}}
+files[] = {"path":"New Folder/New.yaml","metaData":{}}
 
 [config.relations.apiDefinition.metaData]
 type = openapi:3
